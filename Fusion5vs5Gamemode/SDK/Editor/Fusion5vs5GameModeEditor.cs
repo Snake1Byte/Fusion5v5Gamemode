@@ -1,6 +1,7 @@
 #if !MELONLOADER
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Fusion5vs5Gamemode.SDK.Internal;
 using SLZ.MarrowEditor;
 using UnityEditor;
@@ -43,11 +44,17 @@ namespace Fusion5vs5Gamemode.SDK.Editor
 
             EditorGUILayout.Space(20);
 
-            if (Resources.FindObjectsOfTypeAll<Fusion5vs5GamemodeDescriptor>().Length > 1)
+            Fusion5vs5GamemodeDescriptor[] descriptors;
+            if ((descriptors = Resources.FindObjectsOfTypeAll<Fusion5vs5GamemodeDescriptor>().Where(e => e.gameObject.scene.name != null).ToArray()).Length > 1)
             {
                 EditorGUILayout.HelpBox(
-                    "Warning, there is more than one Fusion5vs5GamemodeDescriptor component in this level! This is not allowed and might break the Gamemode!",
+                    $"Warning, there is more than one Fusion5vs5GamemodeDescriptor component in this level ({descriptors.Length} in total)! This is not allowed and might break the Gamemode!",
                     MessageType.Warning);
+                
+                if (GUILayout.Button("Select"))
+                {
+                    Selection.objects = descriptors.Select(e => e.gameObject).ToArray();
+                }
             }
 
             if (behaviour.CounterTerroristBuyZone == null)
@@ -78,7 +85,7 @@ namespace Fusion5vs5Gamemode.SDK.Editor
                     "Warning, the Terrorist buy zone is not set to \"Is Trigger\". Players will collide with this buy zone!",
                     MessageType.Warning);
             }
-            
+
             if (behaviour.TerroristBuyZone != null && behaviour.TerroristBuyZone.gameObject.layer != 27)
             {
                 EditorGUILayout.HelpBox(
@@ -124,7 +131,7 @@ namespace Fusion5vs5Gamemode.SDK.Editor
                 if (breakLoop)
                     break;
             }
-            
+
             breakLoop = false;
             for (int i = 0; i < behaviour.TerroristSpawnPoints.Count; ++i)
             {
@@ -142,7 +149,7 @@ namespace Fusion5vs5Gamemode.SDK.Editor
                 if (breakLoop)
                     break;
             }
-            
+
             breakLoop = false;
             for (int i = 0; i < behaviour.TerroristSpawnPoints.Count; ++i)
             {

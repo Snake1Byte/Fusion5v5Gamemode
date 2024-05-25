@@ -138,8 +138,8 @@ public static class ProjectileTrace
             {
                 impactOrigin = ProjectileOrigin.Keys.First(e => e._direction.Equals(attack.direction));
 #if DEBUG
-                MelonLogger.Msg(
-                    $"Projectile that fits the impacted surface's impact direction is {impactOrigin.GetInstanceID()} with direction {impactOrigin._direction}");
+                // MelonLogger.Msg(
+                //     $"Projectile that fits the impacted surface's impact direction is {impactOrigin.GetInstanceID()} with direction {impactOrigin._direction}");
 #endif
                 if (ProjectileOrigin.TryGetValue(impactOrigin, out Gun gun))
                 {
@@ -149,8 +149,8 @@ public static class ProjectileTrace
                 else
                 {
 #if DEBUG
-                    MelonLogger.Msg(
-                        $"Could not find Gun that fired Projectile {impactOrigin.GetInstanceID()} with name {impactOrigin.gameObject.name}. Aborting.");
+                    // MelonLogger.Msg(
+                    //     $"Could not find Gun that fired Projectile {impactOrigin.GetInstanceID()} with name {impactOrigin.gameObject.name}. Aborting.");
 #endif
                     return;
                 }
@@ -160,8 +160,8 @@ public static class ProjectileTrace
                     if (triggerRefProxy == null)
                     {
 #if DEBUG
-                        MelonLogger.Msg(
-                            $"TriggerRefProxy component for Prejectile with GO name \"{impactOrigin.gameObject.name}\" was found to be null. Aborting.");
+                        // MelonLogger.Msg(
+                        //     $"TriggerRefProxy component for Prejectile with GO name \"{impactOrigin.gameObject.name}\" was found to be null. Aborting.");
 #endif
                         TriggerRefProxys.Remove(impactOrigin.GetInstanceID());
                         return;
@@ -173,8 +173,8 @@ public static class ProjectileTrace
                 else
                 {
 #if DEBUG
-                    MelonLogger.Msg(
-                        $"No TriggerRefProxy component found for Prejectile with GO name \"{impactOrigin.gameObject.name}\". Aborting.");
+                    // MelonLogger.Msg(
+                    //     $"No TriggerRefProxy component found for Prejectile with GO name \"{impactOrigin.gameObject.name}\". Aborting.");
 #endif
                     return;
                 }
@@ -182,16 +182,16 @@ public static class ProjectileTrace
             catch (InvalidOperationException)
             {
 #if DEBUG
-                MelonLogger.Msg(
-                    $"No Projectile component found that impacted on a surface with direction {attack.direction}. Aborting.");
+                // MelonLogger.Msg(
+                //     $"No Projectile component found that impacted on a surface with direction {attack.direction}. Aborting.");
 #endif
                 return;
             }
             catch (Exception e)
             {
 #if DEBUG
-                MelonLogger.Msg(
-                    $"Exception {e} in ProjectileTrace.ProjectileImpactedSurface(...). Aborting.");
+                // MelonLogger.Msg(
+                //     $"Exception {e} in ProjectileTrace.ProjectileImpactedSurface(...). Aborting.");
 #endif
                 return;
             }

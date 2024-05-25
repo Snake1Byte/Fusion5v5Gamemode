@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BoneLib;
 using Fusion5vs5Gamemode.Client;
 using Fusion5vs5Gamemode.Shared.Modules;
+using Fusion5vs5Gamemode.Utilities;
 using Fusion5vs5Gamemode.Utilities.HarmonyPatches;
 using LabFusion.Data;
 using LabFusion.Network;
@@ -11,8 +12,9 @@ using LabFusion.Utilities;
 using SLZ.Marrow.Pool;
 using UnityEngine;
 using static Fusion5vs5Gamemode.Shared.Commons;
+using SafeActions = Fusion5vs5Gamemode.Utilities.SafeActions;
 
-namespace Fusion5vs5Gamemode.Utilities;
+namespace Fusion5vs5Gamemode.Server;
 
 public class FusionSpawning : ISpawning
 {

@@ -155,8 +155,8 @@ public class WeaponModification
         if (_PicatinnySlot == null) return null;
         GameObject? obj = AddGameObject(_PicatinnySlot, "", root);
         if (obj == null) return null;
-        obj.transform.localPosition = transform.position.ToUnityVector3();
-        obj.transform.localRotation = transform.rotation.ToUnityQuaternion();
+        obj.transform.localPosition = transform.position;
+        obj.transform.localRotation = transform.rotation;
         return obj;
     }
 

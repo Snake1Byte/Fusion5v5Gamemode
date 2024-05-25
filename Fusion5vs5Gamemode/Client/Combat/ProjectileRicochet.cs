@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using BoneLib.Nullables;
 using Fusion5vs5Gamemode.Utilities;
 using LabFusion.NativeStructs;
@@ -46,43 +47,16 @@ public static class ProjectileRicochet
     {
         try
         {
-            /*string goName = projectile.gameObject.name + " Ricochet Transform";
-            if (!RicochetGOCache.TryGetValue(goName, out GameObject ricochetGO))
-            {
-                ricochetGO = new GameObject(goName);
-                RicochetGOCache[goName] = ricochetGO;
-            }
-
-            Vector3 reflectDirection = Vector3.Reflect(attack.direction, attack.normal);
-            ricochetGO.transform.SetPositionAndRotation(attack.origin, Quaternion.LookRotation(reflectDirection));
-            */
 #if DEBUG
-            MelonLogger.Msg($"Firing ricochet from Projectile impact of instance {projectile.GetInstanceID()}");
+            // MelonLogger.Msg($"Firing ricochet from Projectile impact of instance {projectile.GetInstanceID()}");
 #endif
             Spawnable spawnable = projectileOrigin.defaultCartridge.projectile.spawnable;
+            Transform transform = projectileOrigin.transform;
             AssetSpawner.Register(spawnable);
-            AssetSpawner.Spawn(spawnable, Vector3.zero, Quaternion.identity,
+            AssetSpawner.Spawn(spawnable, attack.origin, transform.rotation,
                 new BoxedNullable<Vector3>(Vector3.one), false,
-                new BoxedNullable<int>(null), (Action<GameObject>)(go =>
-                {
-                    try
-                    {
-                        Vector3 reflectDirection = Vector3.Reflect(attack.direction, attack.normal);
-                        go.transform.SetPositionAndRotation(attack.origin, Quaternion.LookRotation(reflectDirection));
-
-                        Projectile ricochetProjectile = go.GetComponent<Projectile>();
-                        ricochetProjectile.SetBulletObject(projectile._data, go.transform, Vector3.zero,
-                            Quaternion.identity,
-                            null, proxy);
-                    }
-                    catch (Exception e)
-                    {
-#if DEBUG
-                        MelonLogger.Msg(
-                            $"Exception {e} in ProjectileRicochet.OnProjectileImpactedSurface(...) SpawnCrate() callback. Aborting.");
-#endif
-                    }
-                }));
+                new BoxedNullable<int>(null), (Action<GameObject>)(go => MelonCoroutines.Start(DispatchRicochetProjectile(go.GetComponent<Projectile>(), projectile, proxy,
+                    projectileOrigin, receiver, attack))));
         }
         catch (Exception e)
         {
@@ -91,5 +65,29 @@ public static class ProjectileRicochet
                 $"Exception {e} in ProjectileRicochet.OnProjectileImpactedSurface(...). Aborting.");
 #endif
         }
+    }
+
+    private static IEnumerator DispatchRicochetProjectile(Projectile newProjectile, Projectile originProjectile, TriggerRefProxy proxy,
+        Gun projectileOrigin, ImpactProperties receiver, Attack_ attack)
+    {
+        try
+        {
+            Vector3 reflectDirection = Vector3.Reflect(attack.direction, attack.normal);
+            Transform newProjectileTransform = newProjectile.transform;
+            newProjectileTransform.SetPositionAndRotation(attack.origin, Quaternion.LookRotation(reflectDirection));
+
+            newProjectile.SetBulletObject(originProjectile._data, newProjectileTransform, Vector3.zero,
+                Quaternion.identity,
+                null, proxy);
+        }
+        catch (Exception e)
+        {
+#if DEBUG
+            MelonLogger.Msg(
+                $"Exception {e} in ProjectileRicochet.OnProjectileImpactedSurface(...) SpawnCrate() callback. Aborting.");
+#endif
+        }
+
+        yield break;
     }
 }

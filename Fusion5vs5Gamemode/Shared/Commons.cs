@@ -10,13 +10,11 @@ using BoneLib;
 using Fusion5vs5Gamemode.SDK;
 using Fusion5vs5Gamemode.Utilities;
 using LabFusion.Data;
-using LabFusion.Extensions;
 using LabFusion.Representation;
 using LabFusion.SDK.Gamemodes;
 using MelonLoader;
 using SLZ.Props.Weapons;
 using UnityEngine;
-using Vector3 = System.Numerics.Vector3;
 
 // ReSharper disable InconsistentNaming
 
@@ -54,6 +52,7 @@ public static class Commons
         public const string Fusion5vs5Started = "Fusion5vs5Started";
         public const string Fusion5vs5Aborted = "Fusion5vs5Aborted";
         public const string Fusion5vs5Over = "Fusion5vs5Over";
+        public const string PlayerJoined = "PlayerJoined";
         public const string PlayerLeft = "PlayerLeft";
         public const string BuyTimeOver = "BuyTimeOver";
         public const string BuyTimeStart = "BuyTimeStart";
@@ -82,7 +81,7 @@ public static class Commons
         {
             yield return null;
         }
-        
+
         BoneLib.SafeActions.InvokeActionSafe(action);
     }
 
@@ -101,11 +100,14 @@ public static class Commons
         BoneLib.SafeActions.InvokeActionSafe(action);
     }
 
-    public static IEnumerator CoRunUponConditionDelaySeconds(Action action, Func<bool> condition, float delaySeconds = 0)
+    public static IEnumerator RunCoRoutine(Action action, Func<bool>? condition = null, float delaySeconds = 0)
     {
-        while (!condition.Invoke())
+        if (condition != null)
         {
-            yield return null;
+            while (!condition.Invoke())
+            {
+                yield return null;
+            }
         }
 
         if (delaySeconds > 0)
@@ -130,6 +132,7 @@ public static class Commons
 
         return enabledRenderers;
     }
+
     public static List<Renderer> DisableEnabledRenderers(GameObject go)
     {
         List<Renderer> disabledRenderers = new();
@@ -311,12 +314,12 @@ public static class Commons
         {
             string[] split = value.Split(',');
             Vector3 pos = new Vector3(float.Parse(split[0]), float.Parse(split[1]), float.Parse(split[2]));
-            UnityEngine.Vector3 rot =
-                new UnityEngine.Vector3(float.Parse(split[3]), float.Parse(split[4]), float.Parse(split[5]));
+            Vector3 rot =
+                new Vector3(float.Parse(split[3]), float.Parse(split[4]), float.Parse(split[5]));
             SerializedTransform spawnPoint = new SerializedTransform
             {
                 position = pos,
-                rotation = UnityEngine.Quaternion.Euler(rot).ToSystemQuaternion()
+                rotation = Quaternion.Euler(rot)
             };
             return spawnPoint;
         }

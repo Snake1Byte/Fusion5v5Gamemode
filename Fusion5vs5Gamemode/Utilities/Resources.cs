@@ -7,8 +7,6 @@ using SLZ.Marrow.Pool;
 using SLZ.Marrow.SceneStreaming;
 using UnityEngine;
 using Mesh = UnityEngine.Mesh;
-using Quaternion = System.Numerics.Quaternion;
-using Vector3 = System.Numerics.Vector3;
 using static Fusion5vs5Gamemode.Shared.Commons;
 
 namespace Fusion5vs5Gamemode.Utilities;
@@ -86,7 +84,7 @@ public static class Resources
         };
         foreach (var barcode in barcodes)
         {
-            Spawning?.Spawn(barcode, new SerializedTransform(new Vector3(0, 0, 0), Quaternion.Identity), go => { MelonCoroutines.Start(CoExtractMk18Materials(go)); });
+            Spawning?.Spawn(barcode, new SerializedTransform(new Vector3(0, 0, 0), Quaternion.identity), go => { MelonCoroutines.Start(CoExtractMk18Materials(go)); });
         }
     }
 
@@ -119,16 +117,16 @@ public static class Resources
 
     private static void ExtractUmpBarrel()
     {
-        Spawning?.Spawn(CommonBarcodes.Guns.MP5, new SerializedTransform(Vector3.One, Quaternion.Identity), mp5 => { MelonCoroutines.Start(CoExtractUmpBarrel(mp5)); });
+        Spawning?.Spawn(CommonBarcodes.Guns.MP5, new SerializedTransform(Vector3.one, Quaternion.identity), mp5 => { MelonCoroutines.Start(CoExtractUmpBarrel(mp5)); });
     }
 
     private static IEnumerator CoExtractUmpBarrel(GameObject mp5)
     {
-        GameObject? barrelGrip = mp5.transform.Find("BarrelGrip")?.gameObject;
+        GameObject? barrelGrip = Object.Instantiate(mp5.transform.Find("BarrelGrip")?.gameObject, null, true);
         if (barrelGrip == null) yield break;
-        barrelGrip.hideFlags = HideFlags.DontUnloadUnusedAsset;
         barrelGrip.name = "fusion5vs5_BarrelGrip";
         UmpBarrelGrip = barrelGrip;
+        UmpBarrelGrip.hideFlags = HideFlags.DontUnloadUnusedAsset;
         Spawning?.Despawn(mp5.GetComponent<AssetPoolee>());
     }
 }

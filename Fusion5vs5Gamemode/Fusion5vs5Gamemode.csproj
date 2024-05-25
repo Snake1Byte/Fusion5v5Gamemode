@@ -36,7 +36,7 @@
   <PropertyGroup>
     <PostBuildEvent>python "D:\Windows User\Documents\Python\a\Install_Mod.py" "C:\Program Files (x86)\Steam\steamapps\common\BONELAB\Mods" "C:\Users\Snek\source\repos\Fusion5vs5Gamemode\Fusion5vs5Gamemode\bin\Release\Fusion5vs5Gamemode.dll" "C:\Users\Snek\source\repos\Fusion5vs5Gamemode\Fusion5vs5Gamemode\bin\Debug\Fusion5vs5Gamemode.dll"
 
-python "D:\Windows User\Documents\Python\a\Copy_Files.py" "C:\Users\Snek\source\repos\Fusion5vs5Gamemode\Fusion5vs5Gamemode\SDK" "H:\UnityProjectlamo\Fusion Marrow Integration Testing\Assets\Fusion5vs5Gamemode Marrow Integration"</PostBuildEvent>
+python "D:\Windows User\Documents\Python\a\Copy_Files.py" "C:\Users\Snek\source\repos\Fusion5vs5Gamemode\Fusion5vs5Gamemode\SDK" "H:\UnityProjectlamo\cs_office BONELAB\Assets\Fusion5vs5Gamemode Marrow Integration"</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
@@ -73,7 +73,7 @@ python "D:\Windows User\Documents\Python\a\Copy_Files.py" "C:\Users\Snek\source\
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BONELAB\MelonLoader\Managed\SLZ.Serialize.dll</HintPath>
     </Reference>
     <Reference Include="SwipezGamemodeLib">
-      <HintPath>D:\Shared Libraries\SwipezGamemodeLib.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BONELAB\Mods\SwipezGamemodeLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -146,6 +146,7 @@ python "D:\Windows User\Documents\Python\a\Copy_Files.py" "C:\Users\Snek\source\
     <Compile Include="Shared\Modules\DeferredServerSpawnHandler.cs" />
     <Compile Include="Shared\Modules\ModuleMessages.cs" />
     <Compile Include="Shared\Modules\ModuleRequests.cs" />
+    <Compile Include="Utilities\DebugTools\DebugTools.cs" />
     <Compile Include="Utilities\Extensions\IntElementExtensions.cs" />
     <Compile Include="Utilities\GameObjectComparer.cs" />
     <Compile Include="Utilities\HarmonyPatches\GunPatches.cs" />

@@ -127,7 +127,7 @@ public class Server : IDisposable
 
         foreach (PlayerId player in PlayerIdManager.PlayerIds)
         {
-            InitializePlayer(player);
+            ResetScore(player);
         }
 
         Operations.InvokeTrigger(Events.Fusion5vs5Started);
@@ -150,7 +150,10 @@ public class Server : IDisposable
 #if DEBUG
         MelonLogger.Msg("5vs5 Mode: OnPlayerJoin Called.");
 #endif
-        InitializePlayer(playerId);
+        ResetScore(playerId);
+
+        SetPlayerState(playerId, PlayerStates.Spectator);
+        Operations.InvokeTrigger($"{Events.PlayerJoined}.{playerId.LongId}");
     }
 
     private void OnPlayerLeave(PlayerId playerId)
@@ -399,8 +402,8 @@ public class Server : IDisposable
                 // Found a free spawn point for the player to assign to
                 _SpawnPoints.Remove(player);
                 _SpawnPoints.Add(player, spawnPoint);
-                Vector3 pos = spawnPoint.position.ToUnityVector3();
-                Vector3 rot = spawnPoint.rotation.ToUnityQuaternion().eulerAngles;
+                Vector3 pos = spawnPoint.position;
+                Vector3 rot = spawnPoint.rotation.eulerAngles;
                 Operations.TrySetMetadata(Commons.GetSpawnPointKey(player),
                     $"{pos.x},{pos.y},{pos.z},{rot.x},{rot.y},{rot.z}");
                 return spawnPoint;
@@ -540,16 +543,6 @@ public class Server : IDisposable
     }
 
     // Player
-
-    private void InitializePlayer(PlayerId player)
-    {
-        Log(player);
-
-        ResetScore(player);
-
-        SetPlayerState(player, PlayerStates.Spectator);
-        Operations.InvokeTrigger($"{Events.SetSpectator}.{player.LongId}");
-    }
 
     private void ResetScore(PlayerId player)
     {
