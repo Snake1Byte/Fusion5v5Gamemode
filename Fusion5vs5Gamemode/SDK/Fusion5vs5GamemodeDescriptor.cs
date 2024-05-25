@@ -36,7 +36,7 @@ namespace Fusion5vs5Gamemode.SDK
         [Space(20)] 
         [Header("OPTIONAL")]
 #endif
-        public AvatarCrate DefaultAvatar;
+        public AvatarCrateReference DefaultAvatar;
 
 #if MELONLOADER
         public Fusion5vs5GamemodeDescriptor(IntPtr intPtr) : base(intPtr)
@@ -62,8 +62,7 @@ namespace Fusion5vs5Gamemode.SDK
             public static readonly string CounterTerroristTeamName = "Sabrelake";
             public static readonly string TerroristTeamName = "Lava Gang";
 
-            public static readonly AvatarCrate DefaultAvatar =
-                AssetWarehouse.Instance.GetCrate<AvatarCrate>( "SLZ.BONELAB.Content.Avatar.CharFord");
+            public static readonly AvatarCrateReference DefaultAvatar = new("SLZ.BONELAB.Content.Avatar.CharFord");
         }
 #else
         public void OnBuyZoneExited() { }
@@ -71,13 +70,13 @@ namespace Fusion5vs5Gamemode.SDK
         public void OnBuyZoneEntered() { }
         
         public override string Comment =>
-            "A script mandatory for making your map compatible with Fusion5vs5Gamemode. This script is required to start the gaemmode on this map.\n\n" + BuyZoneComment + SpawnPointComment +
+            "A script mandatory for making your map compatible with Fusion5vs5Gamemode. This script is required to start the game mode on this map.\n\n" + BuyZoneComment + SpawnPointComment +
             "The Fusion5vs5Gamemode also has events that can trigger your custom UltEvents. To be able to listen to these events, add the \"Invoke5vs5UltEvent\" component to a GameObject.";
 
         public const string BuyZoneComment =
             "Buy Zones define the zones where a Team will be able to buy weapons in. This is required since we don't want either team to be able to buy weapons from anywhere within the map, " +
             "but rather within a small area inside of the spawnpoints of either teams. Use Colliders to define the buy zones for each team and set them to \"Is Trigger\". " +
-            "When you're done, don't forget to add them to the respective team below.\n\n";
+            "When you're done, don't forget to add them to their respective slots below.\n\n";
 
         public const string SpawnPointComment =
             "Spawn points designate the 10 spawn points that are required to be on this map. Add 5 Transforms to each team below. Make sure to place the spawn point Transforms inside of a BuyZone " +

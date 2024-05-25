@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Fusion5vs5Gamemode.Utilities;
+﻿namespace Fusion5vs5Gamemode.Utilities;
 
 public interface IFusionServerOperations
 {

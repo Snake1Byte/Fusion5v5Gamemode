@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Fusion5vs5Gamemode.Utilities;
+﻿using Fusion5vs5Gamemode.Utilities;
 using LabFusion.SDK.Gamemodes;
 using static Fusion5vs5Gamemode.Shared.Commons;
 

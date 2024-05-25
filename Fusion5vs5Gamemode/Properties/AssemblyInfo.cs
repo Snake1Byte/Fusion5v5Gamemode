@@ -2,22 +2,23 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Fusion5vs5Gamemode;
-using Fusion5vs5Gamemode.Shared;
+using Fusion5vs5Gamemode.Client;
 using LabFusion.SDK.Modules;
 using MelonLoader;
+using Main = Fusion5vs5Gamemode.Main;
 
-[assembly: MelonInfo(typeof(MainClass), MainClass.NAME, MainClass.VERSION, MainClass.AUTHOR)]
+[assembly: MelonInfo(typeof(Main), Main.NAME, Main.VERSION, Main.AUTHOR)]
 [assembly: MelonGame("Stress Level Zero", "BONELAB")]
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle(MainClass.NAME)]
+[assembly: AssemblyTitle(Main.NAME)]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct(MainClass.NAME)]
-[assembly: AssemblyCopyright("Copyright ©  2024 " + MainClass.AUTHOR)]
+[assembly: AssemblyProduct(Main.NAME)]
+[assembly: AssemblyCopyright("Copyright ©  2024 " + Main.AUTHOR)]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -39,7 +40,7 @@ using MelonLoader;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion(MainClass.VERSION)]
-[assembly: AssemblyFileVersion(MainClass.VERSION)]
+[assembly: AssemblyVersion(Main.VERSION)]
+[assembly: AssemblyFileVersion(Main.VERSION)]
 
-[assembly: ModuleInfo(typeof(Fusion5vs5CustomModule), MainClass.NAME, MainClass.VERSION, MainClass.AUTHOR, null, true, ConsoleColor.Magenta)]
+[assembly: ModuleInfo(typeof(FusionModule), Main.NAME, Main.VERSION, Main.AUTHOR, null, true, ConsoleColor.Cyan)]

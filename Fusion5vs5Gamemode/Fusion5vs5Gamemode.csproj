@@ -36,7 +36,7 @@
   <PropertyGroup>
     <PostBuildEvent>python "D:\Windows User\Documents\Python\a\Install_Mod.py" "C:\Program Files (x86)\Steam\steamapps\common\BONELAB\Mods" "C:\Users\Snek\source\repos\Fusion5vs5Gamemode\Fusion5vs5Gamemode\bin\Release\Fusion5vs5Gamemode.dll" "C:\Users\Snek\source\repos\Fusion5vs5Gamemode\Fusion5vs5Gamemode\bin\Debug\Fusion5vs5Gamemode.dll"
 
-python "D:\Windows User\Documents\Python\a\Copy_Files.py" "C:\Users\Snek\source\repos\Fusion5vs5Gamemode\Fusion5vs5Gamemode\SDK" "H:\UnityProjectlamo\Fusion Marrow Integration Testing\Assets\Fusion5vs5Gamemode Marrow Integration"</PostBuildEvent>
+python "D:\Windows User\Documents\Python\a\Copy_Files.py" "C:\Users\Snek\source\repos\Fusion5vs5Gamemode\Fusion5vs5Gamemode\SDK" "H:\UnityProjectlamo\cs_office BONELAB\Assets\Fusion5vs5Gamemode Marrow Integration"</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
@@ -73,7 +73,7 @@ python "D:\Windows User\Documents\Python\a\Copy_Files.py" "C:\Users\Snek\source\
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BONELAB\MelonLoader\Managed\SLZ.Serialize.dll</HintPath>
     </Reference>
     <Reference Include="SwipezGamemodeLib">
-      <HintPath>D:\Shared Libraries\SwipezGamemodeLib.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BONELAB\Mods\SwipezGamemodeLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -99,6 +99,9 @@ python "D:\Windows User\Documents\Python\a\Copy_Files.py" "C:\Users\Snek\source\
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BONELAB\MelonLoader\Managed\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BONELAB\MelonLoader\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.AudioModule">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BONELAB\MelonLoader\Managed\UnityEngine.AudioModule.dll</HintPath>
     </Reference>
@@ -116,24 +119,36 @@ python "D:\Windows User\Documents\Python\a\Copy_Files.py" "C:\Users\Snek\source\
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client\BuyMenu.cs" />
     <Compile Include="Client\Client.cs" />
+    <Compile Include="Client\Combat\AssetDatabase.cs" />
+    <Compile Include="Client\Combat\BuyMenuSpawning.cs" />
+    <Compile Include="Client\Combat\WeaponModification.cs" />
+    <Compile Include="Client\Combat\Attachments.cs" />
+    <Compile Include="Client\Combat\ProjectileRicochet.cs" />
     <Compile Include="Client\SDKIntegration.cs" />
     <Compile Include="Client\TeamRepresentation.cs" />
-    <Compile Include="Client\TeamSelectionMenu.cs" />
-    <Compile Include="MainClass.cs" />
+    <Compile Include="Client\UI\BuyMenu.cs" />
+    <Compile Include="Client\UI\TeamSelectionMenu.cs" />
+    <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SDK\Editor\Fusion5vs5GameModeEditor.cs" />
     <Compile Include="SDK\Fusion5vs5GamemodeDescriptor.cs" />
     <Compile Include="SDK\Internal\Fusion5vs5GamemodeBehaviour.cs" />
     <Compile Include="SDK\Invoke5vs5UltEvent.cs" />
+    <Compile Include="Server\FusionSpawning.cs" />
     <Compile Include="Server\Server.cs" />
     <Compile Include="Server\FusionServerOperationsImpl.cs" />
     <Compile Include="Shared\Commons.cs" />
-    <Compile Include="Shared\Fusion5vs5ClientRequest.cs" />
-    <Compile Include="Shared\Fusion5vs5CustomModule.cs" />
     <Compile Include="Shared\GameStates.cs" />
+    <Compile Include="Shared\Modules\GenericClientRequestData.cs" />
+    <Compile Include="Shared\Modules\GenericClientRequestHandler.cs" />
+    <Compile Include="Shared\Modules\DeferredServerSpawnData.cs" />
+    <Compile Include="Shared\Modules\DeferredServerSpawnHandler.cs" />
+    <Compile Include="Shared\Modules\ModuleMessages.cs" />
+    <Compile Include="Shared\Modules\ModuleRequests.cs" />
+    <Compile Include="Utilities\DebugTools\DebugTools.cs" />
     <Compile Include="Utilities\Extensions\IntElementExtensions.cs" />
+    <Compile Include="Utilities\GameObjectComparer.cs" />
     <Compile Include="Utilities\HarmonyPatches\GunPatches.cs" />
     <Compile Include="Utilities\HarmonyPatches\ImpactPropertiesPatches.cs" />
     <Compile Include="Utilities\HarmonyPatches\NativeUtilities.cs" />
@@ -142,10 +157,14 @@ python "D:\Windows User\Documents\Python\a\Copy_Files.py" "C:\Users\Snek\source\
     <Compile Include="Utilities\HarmonyPatches\SpawnResponseMessagePatches.cs" />
     <Compile Include="Utilities\HarmonyPatches\TriggerLasersPatches.cs" />
     <Compile Include="Utilities\IFusionServerOperations.cs" />
-    <Compile Include="Utilities\ProjectileRicochet.cs" />
+    <Compile Include="Utilities\ISpawning.cs" />
     <Compile Include="Utilities\ProjectileTrace.cs" />
     <Compile Include="Utilities\RadialMenu.cs" />
+    <Compile Include="Utilities\Resources.cs" />
     <Compile Include="Utilities\SafeActions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\fusion5vs5custom.bundle" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
